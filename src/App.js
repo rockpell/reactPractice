@@ -19,12 +19,34 @@ const list = [
   },
 ];
 
+// 화살표 함수 사용
+// class App extends Component{
+//   render(){
+//     return (
+//       <div className="App">
+//         {list.map(item => {
+//         return (
+//           <div key={item.objectID}>
+//             <sapn>
+//               <a href={item.url}>{item.title}</a>
+//             </sapn>
+//             <span>{item.author}</span>
+//             <span>{item.num_comments}</span>
+//             <sapn>{item.points}</sapn>
+//           </div>
+//           );
+//         })}
+//       </div>
+//     );
+//   }
+// }
+
+// 화살표 함수는 중괄호를 생략하면 자동으로 return 명령이 추가된다.
 class App extends Component{
   render(){
     return (
       <div className="App">
-        {list.map(function(item){
-        return (
+        {list.map(item =>
           <div key={item.objectID}>
             <sapn>
               <a href={item.url}>{item.title}</a>
@@ -33,8 +55,7 @@ class App extends Component{
             <span>{item.num_comments}</span>
             <sapn>{item.points}</sapn>
           </div>
-          );
-        })}
+          )}
       </div>
     );
   }
