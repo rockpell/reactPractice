@@ -19,6 +19,9 @@ const list = [
   },
 ];
 
+const isSearched = searchTerm => item =>
+ item.title.toLowerCase().includes(searchTerm.toLowerCase());
+
 class App extends Component{
 
   constructor(props){
@@ -26,22 +29,32 @@ class App extends Component{
 
     this.state = { 
       list,
+      searchTerm: '',
     };
 
     this.onDismiss = this.onDismiss.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
   }
 
   onDismiss(id){
-    const isNotId = item => item.objectID != id;
+    const isNotId = item => item.objectID !== id;
     const updatedList = this.state.list.filter(isNotId); // 조건과 일치하지 않는 엘리먼트를 배열에서 제외한다.(false인)
     
     this.setState({list: updatedList});
   }
 
+  onSearchChange(event){
+    this.setState({searchTerm: event.target.value});
+  }
+
   render(){
     return ( 
       <div className="App">
-        {this.state.list.map(item =>
+        <form>
+          <input type="text"
+          onChange={this.onSearchChange}/>
+        </form>
+        {this.state.list.filter(isSearched(this.state.searchTerm)).map(item =>
           <div key={item.objectID}>
             <sapn>
               <a href={item.url}>{item.title}</a>
