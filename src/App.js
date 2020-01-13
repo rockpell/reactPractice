@@ -25,17 +25,18 @@ class App extends Component{
     super(props);
 
     this.state = { 
-      list, // state 프로퍼티 이름과 변수 이름이 동일하면 생략 가능
+      list,
     };
+
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
-  // 아래와 같은 형태로 변수명 지정 가능, 계산된 프로퍼티 이름(computed property name) 
-  /*
-  const key = 'name';
-  const user = {
-    [key]: 'Robin',
-  };
-  */
+  onDismiss(id){
+    const isNotId = item => item.objectID != id;
+    const updatedList = this.state.list.filter(isNotId); // 조건과 일치하지 않는 엘리먼트를 배열에서 제외한다.(false인)
+    
+    this.setState({list: updatedList});
+  }
 
   render(){
     return ( 
@@ -48,6 +49,14 @@ class App extends Component{
             <span>{item.author}</span>
             <span>{item.num_comments}</span>
             <sapn>{item.points}</sapn>
+            <sapn>
+              <button
+                onClick={() => this.onDismiss(item.objectID)}
+                type="button"  
+              >
+                dismiss
+              </button>
+            </sapn>
           </div>
           )}
       </div>
